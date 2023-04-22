@@ -9,6 +9,7 @@ use app\models\Entity;
 use app\models\search\CommentSearch;
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
+use yii\bootstrap5\LinkPager;
 use yii\captcha\Captcha;
 use yii\grid\GridView;
 
@@ -50,6 +51,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'layout'=>"{items}\n{pager}\n{summary}",
+                    'pager' => [
+                        'class' => LinkPager::class,
+                        'options' => ['class' => 'pagination'],
+                        'linkOptions' => ['class' => 'page-link'],
+                        'activePageCssClass' => 'active',
+                        'disabledPageCssClass' => 'disabled',
+                        'prevPageCssClass' => 'page-item prev',
+                        'nextPageCssClass' => 'page-item next',
+                        'prevPageLabel' => '<span aria-hidden="true">&laquo;</span>',
+                        'nextPageLabel' => '<span aria-hidden="true">&raquo;</span>',
+                        'maxButtonCount' => 3,
+                    ],
 
                     'columns' => [
                         'id',

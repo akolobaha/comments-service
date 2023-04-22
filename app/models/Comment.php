@@ -49,6 +49,17 @@ class Comment extends ActiveRecord
         ];
     }
 
+    public function fields()
+    {
+        return [
+            'subject' => function() {return $this->entity->title;},
+            'subject_id' => 'entity_id',
+            'username',
+            'created_at',
+            'comment'
+        ];
+    }
+
     public function getEntity() {
         return $this->hasOne(Entity::class, ['id' => 'entity_id']);
     }
