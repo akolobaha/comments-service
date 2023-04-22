@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Comment;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -52,6 +53,25 @@ class SiteController extends Controller
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
+    }
+
+
+    public function actionAddComment() {
+        $model = new Comment();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Комментарий успешно сохранен');
+//            Yii::$app->session->setFlash('contactFormSubmitted');
+//
+//            return $this->refresh();
+        }
+
+        return $this->render('add-comment', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionCommentsList() {
+        return 'список комментариев';
     }
 
     /**
