@@ -2,25 +2,31 @@
 namespace app\controllers;
 
 use app\models\Comment;
-use app\models\Entity;
-use yii\filters\ContentNegotiator;
-use yii\rest\ActiveController;
+use app\models\search\CommentSearch;
 use yii\rest\Controller;
-use yii\web\Response;
 use function PHPUnit\Framework\isJson;
 
 class ApiController extends Controller
 {
-    const LIMIT = 1000;
 
     public $modelClass = 'app\models\Comment';
 
     public function actionIndex() {
-        return Comment::find()->limit(self::LIMIT)->all();
-    }
+        $query = \Yii::$app->request->queryParams;
 
-    public function actionView($id) {
-        return Comment::find()->where(['id' => $id])->asArray()->one();
+        $queryParams = ["CommentSearch" => [
+            "id" => isset($query['id']) ? $query['id'] : '',
+            "username" => isset($query['username']) ? $query['username'] : '',
+            "comment" => isset($query['comment']) ? $query['comment'] : '',
+            "status" => isset($query['status']) ? $query['status'] : '',
+            "entity_id" => isset($query['entity']) ? $query['entity'] : '',
+            "created_at" => isset($query['date']) ? $query['date'] : '',
+        ]];
+
+        $searchModel = new CommentSearch();
+        $dataProvider = $searchModel->search($queryParams);
+
+        return $dataProvider->getModels();
     }
 
     public function actionCreate() {
@@ -36,6 +42,7 @@ class ApiController extends Controller
 
         if ($model->save())
             return ['message' => 'OK!'];
+
         return ['message' => 'Invalid data', 'errors' => $model->getErrors()];
     }
 }

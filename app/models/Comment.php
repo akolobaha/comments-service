@@ -45,7 +45,6 @@ class Comment extends ActiveRecord
             [['entity_id', 'status'], 'integer'],
             [['comment', 'entity_id'], 'required'],
             [['status'], 'default', 'value' => self::STATUS_NEW]
-
         ];
     }
 
@@ -55,7 +54,7 @@ class Comment extends ActiveRecord
             'subject' => function() {return $this->entity->title;},
             'subject_id' => 'entity_id',
             'username',
-            'created_at',
+            'date' => function() {return date('d.m.Y', $this->created_at);},
             'comment'
         ];
     }

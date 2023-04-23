@@ -29,6 +29,14 @@ class CommentController extends Controller
         ]);
     }
 
+    public function actionView($id) {
+        $model = Comment::findOne($id);
+
+        return $this->render('view', [
+            'model' => $model,
+        ]);
+    }
+
     public function actionUpdate($id) {
         $model = Comment::findOne($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

@@ -15,7 +15,7 @@ class CommentSearch extends Comment
     public function rules()
     {
         return [
-            [['username', 'comment', 'status', 'created_at', 'entity_id', 'entity_title', 'id'], 'safe']
+            [['username', 'comment', 'status', 'created_at', 'entity_id', 'id'], 'safe']
         ];
     }
 

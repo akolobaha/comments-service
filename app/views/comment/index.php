@@ -6,14 +6,10 @@
 
 use app\models\Comment;
 use app\models\Entity;
-use app\models\search\CommentSearch;
 use kartik\date\DatePicker;
-use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\LinkPager;
-use yii\captcha\Captcha;
 use yii\grid\GridView;
-use dosamigos\datetimepicker\DateTimePicker;
 
 $this->title = 'Comments';
 $this->params['breadcrumbs'][] = $this->title;
@@ -76,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'entity_id',
                             'filter' => Entity::getTitlesList(),
                             'value' => function ($model) {
-                                return $model->entity_id;
+                                return $model->entity->title . ' id: (' . $model->entity_id . ')';
                             }
                         ],
                         [
@@ -93,13 +89,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]
                             ]),
                         ],
-
-
-
-
                         [
                             'class' => 'yii\grid\ActionColumn',
-                            'template' => '{update} {delete}',
                         ],
                     ],
 

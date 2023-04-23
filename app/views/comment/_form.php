@@ -4,7 +4,7 @@ use yii\bootstrap5\Html;
 $form = ActiveForm::begin(['id' => 'contact-form']); ?>
 
 <?= $form->field($model, 'entity_id')
-    ->dropDownList(\app\models\Entity::getList())
+    ->dropDownList(\app\models\Entity::getTitlesList())
 ?>
 
 <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
