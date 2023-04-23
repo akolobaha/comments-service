@@ -11,14 +11,11 @@ class CommentSearch extends Comment
     public $comment;
     public $status;
     public $entity_id;
-    public $entity_title;
 
     public function rules()
     {
         return [
-            [['id', 'entity_id'], 'integer'],
-            [['username', 'comment', 'status', 'entity_title'], 'string'],
-            [['username', 'comment', 'status'], 'safe'],
+            [['username', 'comment', 'status', 'created_at', 'entity_id', 'entity_title', 'id'], 'safe']
         ];
     }
 
@@ -51,6 +48,11 @@ class CommentSearch extends Comment
             'entity_id' => $this->entity_id,
         ]);
 
+        if ($this->created_at) {
+            $start_timestamp = strtotime($this->created_at);
+            $finish_timestamp = strtotime('+1 day', $start_timestamp) - 1;
+            $query->andFilterWhere(['between', 'created_at', $start_timestamp, $finish_timestamp]);
+        }
 
         $query->andFilterWhere(['like', 'username', $this->username]);
         $query->andFilterWhere(['like', 'comment', $this->comment]);

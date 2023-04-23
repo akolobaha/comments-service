@@ -19,9 +19,13 @@ class Entity extends ActiveRecord
         ];
     }
 
-    static function getList() {
+    static function getTitlesList() {
         $arr = Entity::find()->select(['id', 'title'])->asArray()->all();
-        return ArrayHelper::map($arr, 'id', 'title');
+        $mapped_arr = ArrayHelper::map($arr, 'id', 'title');
+        foreach ($mapped_arr as $index => $item)
+            $mapped_arr[$index] .= " (id: $index)";
+
+        return $mapped_arr;
     }
 
     static function getIdsList() {

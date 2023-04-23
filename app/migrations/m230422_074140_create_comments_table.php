@@ -14,12 +14,12 @@ class m230422_074140_create_comments_table extends Migration
     {
         $this->createTable('{{%comments}}', [
             'id' => $this->primaryKey(),
-            'username' => $this->string(255),
+            'username' => $this->string(255)->defaultValue(null),
             'comment' => $this->text()->notNull(),
             'entity_id' => $this->integer(11)->notNull(),
             'ip' => $this->string(255),
             'user_agent' => $this->string(255),
-            'status' => $this->tinyInteger(),
+            'status' => $this->tinyInteger()->check("status >= 0 AND status <= 2"),
             'created_at' => $this->integer(11),
             'updated_at' => $this->integer(11)
         ]);
@@ -40,7 +40,7 @@ class m230422_074140_create_comments_table extends Migration
     public function safeDown()
     {
         $this->dropForeignKey('fk-comments-entities_id-entity-id',
-            'comments'
+            '{{%comments}}'
         );
 
         $this->dropTable('{{%comments}}');

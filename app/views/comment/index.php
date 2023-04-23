@@ -7,13 +7,15 @@
 use app\models\Comment;
 use app\models\Entity;
 use app\models\search\CommentSearch;
+use kartik\date\DatePicker;
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\LinkPager;
 use yii\captcha\Captcha;
 use yii\grid\GridView;
+use dosamigos\datetimepicker\DateTimePicker;
 
-$this->title = 'Contact';
+$this->title = 'Comments';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-contact">
@@ -21,27 +23,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
 
-        <div class="alert alert-success">
-            Thank you for contacting us. We will respond to you as soon as possible.
-        </div>
+        <div class="alert alert-success"></div>
 
-        <p>
-            Note that if you turn on the Yii debugger, you should be able
-            to view the mail message on the mail panel of the debugger.
-            <?php if (Yii::$app->mailer->useFileTransport): ?>
-                Because the application is in development mode, the email is not sent but saved as
-                a file under <code><?= Yii::getAlias(Yii::$app->mailer->fileTransportPath) ?></code>.
-                                                                                                    Please configure the <code>useFileTransport</code> property of the <code>mail</code>
-                application component to be false to enable email sending.
-            <?php endif; ?>
-        </p>
 
     <?php else: ?>
-
-        <p>
-            If you have business inquiries or other questions, please fill out the following form to contact us.
-            Thank you.
-        </p>
 
         <div class="row">
             <div class="col-12">
@@ -89,18 +74,26 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         [
                             'attribute' => 'entity_id',
-                            'filter' => Entity::getIdsList(),
+                            'filter' => Entity::getTitlesList(),
                             'value' => function ($model) {
                                 return $model->entity_id;
                             }
                         ],
                         [
+                            'attribute' => 'created_at',
+                            'value' => 'created_at',
+                            'format' => ['date', 'php:d.m.Y'],
+                            'filter' => DatePicker::widget([
+                                'model' => $searchModel,
                                 'attribute' => 'created_at',
-                                'value' => function ($model) {
-                                    return date('d-m-Y',$model->created_at);
-                                },
-
+                                'options' => ['placeholder' => 'Select date'],
+                                'pluginOptions' => [
+                                    'autoclose' => true,
+                                    'format' => 'dd.mm.yyyy'
+                                ]
+                            ]),
                         ],
+
 
 
 

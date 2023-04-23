@@ -6,7 +6,7 @@
 
 use yii\bootstrap5\Html;
 
-$this->title = 'Comment';
+$this->title = 'Update comment ' . $model->id;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-contact">

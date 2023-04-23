@@ -60,9 +60,7 @@ class SiteController extends Controller
         $model = new Comment();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Комментарий успешно сохранен');
-//            Yii::$app->session->setFlash('contactFormSubmitted');
-//
-//            return $this->refresh();
+
         }
 
         return $this->render('add-comment', [
@@ -81,7 +79,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->redirect('/comment/index');
     }
 
     /**
