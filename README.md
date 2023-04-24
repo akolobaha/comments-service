@@ -76,9 +76,9 @@ Start the container
 
     docker-compose up -d
 
-.env Файл
+### .env Файл
 
-   docker-compose run --rm php mv .env.template .env
+   ```docker-compose run --rm php mv .env.template .env```
 
 You can then access the application through the following URL:
 
