@@ -5,6 +5,10 @@ namespace app\models;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
+/**
+ * @property $title
+ * @property $id
+ */
 class Entity extends ActiveRecord
 {
     public static function tableName()
@@ -31,5 +35,28 @@ class Entity extends ActiveRecord
     static function getIdsList() {
         $arr = Entity::find()->select(['id'])->asArray()->all();
         return ArrayHelper::map($arr, 'id', 'id');
+    }
+
+    /**
+     * @param $title
+     * @return false|int|string
+     * get or create by title
+     */
+    public static function getByTitle($title) {
+        $existing_id = self::find()
+            ->where(['title' => $title])
+            ->select('id')
+            ->scalar();
+
+        if ($existing_id)
+            return $existing_id;
+
+        $model = new self();
+        $model->title = $title;
+
+        if ($model->save())
+            return $model->id;
+
+        return false;
     }
 }

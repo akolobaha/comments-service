@@ -19,7 +19,7 @@ class m230422_074140_create_comments_table extends Migration
             'entity_id' => $this->integer(11)->notNull(),
             'ip' => $this->string(255),
             'user_agent' => $this->string(255),
-            'status' => $this->tinyInteger()->check("status >= 0 AND status <= 2"),
+            'status' => $this->tinyInteger()->check("status >= 0 AND status <= 2")->defaultValue(0),
             'created_at' => $this->integer(11),
             'updated_at' => $this->integer(11)
         ]);

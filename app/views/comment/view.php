@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <div class="mb-3">
                     <label for="disabledTextInput" class="form-label">comment</label>
-                    <textarea rows="10" type="text" id="disabledTextInput" class="form-control" placeholder="<?= $model->username; ?>"></textarea>
+                    <textarea rows="10" type="text" id="disabledTextInput" class="form-control" placeholder="<?= $model->comment; ?>"></textarea>
                 </div>
 
                 <div class="mb-3">
