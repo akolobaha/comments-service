@@ -61,6 +61,37 @@ DB_USERNAME = 'root'
 DB_PREFIX   = ''
 ```
 
+### Docker
+Под доккером php, mysql.
+
+Update your vendor packages
+
+    docker-compose run --rm php composer update --prefer-dist
+
+Run the installation triggers (creating cookie validation code)
+
+    docker-compose run --rm php composer install    
+
+Start the container
+
+    docker-compose up -d
+
+.env Файл
+
+   docker-compose run --rm php mv .env.template .env
+
+You can then access the application through the following URL:
+
+    http://127.0.0.1:8000
+
+### Миграции
+```docker-compose run --rm php yii migrate```
+
+### Парсинг
+#### Otzovik.com
+``` docker exec php yii parser/otzovik```
+
+
 ### API
 
 #### Получение всех комментариев (GET):
@@ -70,26 +101,16 @@ DB_PREFIX   = ''
 
 ```http://127.0.0.1:8000/api?comment=sdf&id=2&subject_id=1&username=wrr&date=23.04.2023```
 
-### Парсинг
-#### Otzovik.com
-``` docker exec php yii parser/otzovik```
+#### Создание комментария (POST):
+```http://127.0.0.1:8000/api/create```
 
-### Docker
-Под доккером php, mysql.
+Тело запроса:
+```json
+{
+   "subject_id": 1,
+   "username": "akolobaha",
+   "comment": "Текст комментария"
+}
+```
 
-Update your vendor packages
-
-    docker-compose run --rm php composer update --prefer-dist
-    
-Run the installation triggers (creating cookie validation code)
-
-    docker-compose run --rm php composer install    
-    
-Start the container
-
-    docker-compose up -d
-    
-You can then access the application through the following URL:
-
-    http://127.0.0.1:8000
 
